@@ -1,94 +1,158 @@
 ﻿Public Class Form1
     Dim op1 As Double = 0
-    Dim op2 As Double = 0
-    Dim operationSelected As Boolean = False
+    Dim overrideInput As Boolean = False
     Dim equation As String = " "
     Dim operationSign As String = " "
-    Dim stringContainer As String
+    Dim superFlag As String = " "
+    Dim operationFlag As Boolean = False
 
 
     Private Sub buttonEntry(sender As Object, e As EventArgs) Handles buttonZero.Click, buttonOne.Click, buttonTwo.Click, buttonThree.Click, buttonFour.Click, buttonFive.Click, buttonSix.Click, buttonSeven.Click, buttonEight.Click, buttonNine.Click, periodButton.Click
-
-
-
-
-        If outBox.Text = "0" Or operationSelected Then
+        If outBox.Text = "0" Or overrideInput Then
             If Not outBox.Text.Contains(".") And sender.Text = "." Then
-                stringContainer = outBox.Text + sender.Text
-                MessageBox.Show(stringContainer)
-                outBox.Text = " "
-                outBox.Text = stringContainer
+                If outBox.Text = "0" Then
+                    outBox.Text = outBox.Text + sender.Text
+                    equation += sender.Text
+                Else
+                    outBox.Text = "0."
+                    equation += "0."
+                End If
+
             Else
                 outBox.Text = sender.Text
+                equation += sender.Text
             End If
-            operationSelected = False
+            overrideInput = False
         ElseIf sender.Text = "." Then
             If Not outBox.Text.Contains(".") Then
                 outBox.Text += sender.Text
+                equation += sender.Text
             End If
         Else
+
             outBox.Text += sender.Text
+            equation += sender.Text
+            updateEquation()
         End If
-
-
     End Sub
 
-    Private Sub performOperation(sender As Button)
-        If sender.Text = "+" Then
-            op1 += Convert.ToDouble(outBox.Text)
+    Private Sub performOperation()
+        equation += operationSign
+        updateEquation()
+        If operationFlag Then
+            If superFlag = "+" Then
+                op1 += Convert.ToDouble(outBox.Text)
+            End If
+
+            If superFlag = "−" Then
+                op1 -= Convert.ToDouble(outBox.Text)
+            End If
+
+            If superFlag = "✕" Then
+                op1 *= Convert.ToDouble(outBox.Text)
+            End If
+
+            If superFlag = "÷" Then
+                op1 /= Convert.ToDouble(outBox.Text)
+            End If
+
+        Else
+            op1 = Convert.ToDouble(outBox.Text)
+            operationFlag = True
         End If
-        If sender.Text = "-" Then
-            op1 -= Convert.ToDouble(outBox.Text)
-        End If
-        equation += sender.Text + outBox.Text
-        equationBox.Text = equation
+        superFlag = operationSign
         outBox.Text = op1
-        operationSelected = True
+        overrideInput = True
+    End Sub
 
+    Private Sub updateEquation()
+        equationBox.Text = equation
     End Sub
 
 
-
-    Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click, subButton.Click
-        performOperation(sender)
-
+    Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click, subButton.Click, mulButton.Click, divButton.Click
+        If outBox.Text.Length > 0 Then
+            If outBox.Text = "0" Then
+                equation += "0"
+            End If
+            operationSign = sender.Text
+            If Strings.Right(equation, 1) = "+" Or Strings.Right(equation, 1) = "−" Or Strings.Right(equation, 1) = "✕" Or Strings.Right(equation, 1) = "÷" Then
+                equation = equation.Substring(0, equation.Length - 1) + operationSign
+                superFlag = operationSign
+                updateEquation()
+            Else
+                performOperation()
+            End If
+        End If
     End Sub
 
 
     Private Sub performOperation(sender As Object, e As EventArgs) Handles equalButton.Click
-        If operationSign = "+" Then
-            op1 += Convert.ToDouble(outBox.Text)
-            operationSelected = True
+        If Strings.Right(equation, 1) = "+" Or Strings.Right(equation, 1) = "−" Or Strings.Right(equation, 1) = "✕" Or Strings.Right(equation, 1) = "÷" Then
+            clear()
+        Else
+            performOperation()
             equation = " "
+            operationFlag = False
+            superFlag = " "
+            overrideInput = True
             equationBox.Text = " "
-            outBox.Text = op1
-            op1 = 0
+        End If
+
+    End Sub
+
+    Private Sub clearEntry() Handles ceButton.Click
+        If Not superFlag = " " Then
+            outBox.Text = 0
+            equation = equation.Substring(0, InStrRev(equation, superFlag))
+        Else
+            clear()
         End If
     End Sub
 
-    Private Sub clearEntry(sender As Object, e As EventArgs) Handles ceButton.Click
-        outBox.Text = 0
-    End Sub
-
-    Private Sub clear(sender As Object, e As EventArgs) Handles cButton.Click
+    Private Sub clear() Handles cButton.Click
         op1 = 0
-        operationSelected = False
+        operationSign = " "
+        overrideInput = False
+        operationFlag = False
+        superFlag = " "
         equation = " "
         equationBox.Text = equation
         outBox.Text = "0"
+        updateEquation()
     End Sub
 
-    Private Sub delBackspace(sender As Object, e As EventArgs) Handles delButton.Click
+    Private Sub delBackspace() Handles delButton.Click
         If outBox.Text.Length > 0 Then
             If outBox.Text.Length = 1 Then
                 outBox.Text = "0"
+                equation = equation.Substring(0, equation.Length - 1)
             Else
                 outBox.Text = outBox.Text.Substring(0, outBox.Text.Length - 1)
+                equation = equation.Substring(0, equation.Length - 1)
             End If
         Else
             outBox.Text = "0"
+            equation = equation.Substring(0, equation.Length - 1)
         End If
     End Sub
 
+    Private Sub negateSign() Handles signButton.Click
+        If outBox.Text.Length > 0 Then
+            If Not outBox.Text.Substring(0, 1) = "0" Or outBox.Text.Contains(".") Then
+                If Not outBox.Text.Substring(0, 1) = "-" Then
+                    outBox.Text = "-" & outBox.Text
+                    equation = equation.Substring(0, InStrRev(equation, superFlag))
+                    equation += outBox.Text
+                Else
+                    outBox.Text = outBox.Text.Substring(1, outBox.Text.Length - 1)
+                    equation = equation.Substring(0, InStrRev(equation, superFlag))
+                    equation += outBox.Text
+                End If
+            End If
 
+        End If
+
+
+    End Sub
 End Class
