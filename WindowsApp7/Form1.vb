@@ -6,7 +6,6 @@
     Dim superFlag As String = " "
     Dim operationFlag As Boolean = False
 
-
     Private Sub buttonEntry(sender As Object, e As EventArgs) Handles buttonZero.Click, buttonOne.Click, buttonTwo.Click, buttonThree.Click, buttonFour.Click, buttonFive.Click, buttonSix.Click, buttonSeven.Click, buttonEight.Click, buttonNine.Click, periodButton.Click
         If outBox.Text = "0" Or overrideInput Then
             If Not outBox.Text.Contains(".") And sender.Text = "." Then
@@ -17,7 +16,6 @@
                     outBox.Text = "0."
                     equation += "0."
                 End If
-
             Else
                 outBox.Text = sender.Text
                 equation += sender.Text
@@ -29,7 +27,6 @@
                 equation += sender.Text
             End If
         Else
-
             outBox.Text += sender.Text
             equation += sender.Text
             updateEquation()
@@ -55,7 +52,6 @@
             If superFlag = "÷" Then
                 op1 /= Convert.ToDouble(outBox.Text)
             End If
-
         Else
             op1 = Convert.ToDouble(outBox.Text)
             operationFlag = True
@@ -68,7 +64,6 @@
     Private Sub updateEquation()
         equationBox.Text = equation
     End Sub
-
 
     Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click, subButton.Click, mulButton.Click, divButton.Click
         If outBox.Text.Length > 0 Then
@@ -98,8 +93,8 @@
             overrideInput = True
             equationBox.Text = " "
         End If
-
     End Sub
+
 
     Private Sub clearEntry() Handles ceButton.Click
         If Not superFlag = " " Then
@@ -150,9 +145,7 @@
                     equation += outBox.Text
                 End If
             End If
-
         End If
-
-
     End Sub
+
 End Class
