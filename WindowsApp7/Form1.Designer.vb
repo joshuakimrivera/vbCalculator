@@ -42,7 +42,7 @@ Partial Class Form1
         Me.addButton = New System.Windows.Forms.Button()
         Me.equalButton = New System.Windows.Forms.Button()
         Me.periodButton = New System.Windows.Forms.Button()
-        Me.Button20 = New System.Windows.Forms.Button()
+        Me.signButton = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.outBox = New System.Windows.Forms.TextBox()
         Me.equationBox = New System.Windows.Forms.TextBox()
@@ -246,7 +246,6 @@ Partial Class Form1
         'divButton
         '
         Me.divButton.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.divButton.Enabled = False
         Me.divButton.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.divButton.FlatAppearance.BorderSize = 0
         Me.divButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -262,7 +261,6 @@ Partial Class Form1
         'mulButton
         '
         Me.mulButton.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.mulButton.Enabled = False
         Me.mulButton.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.mulButton.FlatAppearance.BorderSize = 0
         Me.mulButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -278,7 +276,6 @@ Partial Class Form1
         'subButton
         '
         Me.subButton.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.subButton.Enabled = False
         Me.subButton.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.subButton.FlatAppearance.BorderSize = 0
         Me.subButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -336,21 +333,20 @@ Partial Class Form1
         Me.periodButton.Text = "."
         Me.periodButton.UseVisualStyleBackColor = False
         '
-        'Button20
+        'signButton
         '
-        Me.Button20.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.Button20.Enabled = False
-        Me.Button20.FlatAppearance.BorderColor = System.Drawing.Color.White
-        Me.Button20.FlatAppearance.BorderSize = 0
-        Me.Button20.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button20.Font = New System.Drawing.Font("Segoe UI Semibold", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button20.ForeColor = System.Drawing.SystemColors.MenuText
-        Me.Button20.Location = New System.Drawing.Point(2, 674)
-        Me.Button20.Name = "Button20"
-        Me.Button20.Size = New System.Drawing.Size(133, 104)
-        Me.Button20.TabIndex = 24
-        Me.Button20.Text = "∓"
-        Me.Button20.UseVisualStyleBackColor = False
+        Me.signButton.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.signButton.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.signButton.FlatAppearance.BorderSize = 0
+        Me.signButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.signButton.Font = New System.Drawing.Font("Segoe UI Semibold", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.signButton.ForeColor = System.Drawing.SystemColors.MenuText
+        Me.signButton.Location = New System.Drawing.Point(2, 674)
+        Me.signButton.Name = "signButton"
+        Me.signButton.Size = New System.Drawing.Size(133, 104)
+        Me.signButton.TabIndex = 24
+        Me.signButton.Text = "±"
+        Me.signButton.UseVisualStyleBackColor = False
         '
         'Label2
         '
@@ -370,14 +366,14 @@ Partial Class Form1
         Me.outBox.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.outBox.Font = New System.Drawing.Font("Segoe UI Semibold", 55.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.outBox.ForeColor = System.Drawing.SystemColors.MenuText
-        Me.outBox.Location = New System.Drawing.Point(2, 100)
-        Me.outBox.MaxLength = 17
+        Me.outBox.Location = New System.Drawing.Point(9, 100)
+        Me.outBox.MaxLength = 12
         Me.outBox.Name = "outBox"
         Me.outBox.ReadOnly = True
-        Me.outBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.outBox.Size = New System.Drawing.Size(538, 98)
+        Me.outBox.Size = New System.Drawing.Size(528, 98)
         Me.outBox.TabIndex = 26
         Me.outBox.Text = "0"
+        Me.outBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'equationBox
         '
@@ -387,9 +383,10 @@ Partial Class Form1
         Me.equationBox.ForeColor = System.Drawing.SystemColors.ScrollBar
         Me.equationBox.Location = New System.Drawing.Point(98, 66)
         Me.equationBox.Name = "equationBox"
-        Me.equationBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.equationBox.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.equationBox.Size = New System.Drawing.Size(432, 28)
         Me.equationBox.TabIndex = 27
+        Me.equationBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Form1
         '
@@ -400,7 +397,7 @@ Partial Class Form1
         Me.Controls.Add(Me.equationBox)
         Me.Controls.Add(Me.outBox)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Button20)
+        Me.Controls.Add(Me.signButton)
         Me.Controls.Add(Me.periodButton)
         Me.Controls.Add(Me.equalButton)
         Me.Controls.Add(Me.addButton)
@@ -447,7 +444,7 @@ Partial Class Form1
     Friend WithEvents addButton As Button
     Friend WithEvents equalButton As Button
     Friend WithEvents periodButton As Button
-    Friend WithEvents Button20 As Button
+    Friend WithEvents signButton As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents outBox As TextBox
     Friend WithEvents equationBox As TextBox
