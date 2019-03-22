@@ -18,7 +18,7 @@
             operationSelected = False
         Else
             If Not hasPeriod Then
-                outBox.Text = outBox.Text & "."
+                outBox.Text = "." & outBox.Text
                 hasPeriod = True
             Else
                 outBox.Text = outBox.Text & sender.Text
@@ -27,20 +27,21 @@
         End If
     End Sub
 
-    Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click
-        If operationSelected Then
-            If equationBox.Text.Contains("+") Then
-                equation = equation.Substring(0, equation.Length - 1) + sender.Text
-                equationBox.Text = equation
-            End If
-        Else
-            operationSign = sender.Text
-            equation += sender.Text + outBox.Text
+    Private Sub performOperation(sender As Button)
+        If sender.Text = "+" Then
             op1 += Convert.ToDouble(outBox.Text)
-            outBox.Text = op1
+            equation += sender.Text + outBox.Text
             equationBox.Text = equation
+            outBox.Text = op1
             operationSelected = True
         End If
+
+    End Sub
+
+
+
+    Private Sub addButton_Click(sender As Object, e As EventArgs) Handles addButton.Click
+        performOperation(sender)
 
     End Sub
 
