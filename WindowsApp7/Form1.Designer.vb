@@ -278,7 +278,6 @@ Partial Class Form1
         'subButton
         '
         Me.subButton.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.subButton.Enabled = False
         Me.subButton.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.subButton.FlatAppearance.BorderSize = 0
         Me.subButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -374,7 +373,7 @@ Partial Class Form1
         Me.outBox.MaxLength = 17
         Me.outBox.Name = "outBox"
         Me.outBox.ReadOnly = True
-        Me.outBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.outBox.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.outBox.Size = New System.Drawing.Size(538, 98)
         Me.outBox.TabIndex = 26
         Me.outBox.Text = "0"
